@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}
+    {% if is_cat %}
+    {{ category }}|复见天心
+    {% elif is_tag %}
+        {{ tag }}|复见天心
+    {% elif is_search %}
+        {{ title }}|复见天心
+    {% else %}
+        复见天心
+    {% endif %}
+{% endblock %}
+{% block content %}
+{% if article_list %}
+{% for content in article_list %}
+    <div class="panel">
+    <div class="panel-heading navbar-default"><a href="{{ content.get_absolute_url }}"><strong>{{ content.title }}</strong></a></div>
+    <div class="article-tags">
+    &nbsp;
+    <span class="label label-success"><span class="glyphicon glyphicon-tags"><b>标签:</b></span></span>
+    {% for tag in content.tag.all %}
+    <a class="label label-success" href="{{ tag.get_absolute_url }}"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>{{ tag }}</a>
+    {% endfor %}
+    <span class="label label-info"><span class="glyphicon glyphicon-time"><b>时间:</b></span></span>
+    <span class="label label-info">{{ content.date_publish | date:"SHORT_DATE_FORMAT" }}</span>
+    <span class="ds-thread-count label label-warning" data-thread-key="{{ content.id }}" data-count-type="comments"></span>
+    </div>
+    {% autoescape off %}
+    <div class="panel-body">{{ content.content | truncatewords_html:100 }}<a href="{% url 'article_content' content.title %}">阅读全文</a></div>
+    {% endautoescape %}
+    </div>
+{% endfor %}
+
+{% else %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">暫无文章!</h3>
+  </div>
+  <div class="panel-body">
+    <p><center>
+        <br>
+        今且有言于此，不知其与“是“类乎？其与”是“不类乎？<br>
+        类与不类，相与为类，则与”彼“无以异矣。<br>
+        虽然，请尝言之：有始也者，有未始有始也者，有未始有夫未始有始也者。<br>
+        有有也者，有无也者，有未始有无也者，有未始有夫未始有无也者。<br>
+        俄而有”无“矣，而未知有“无”之果孰有孰无也？<br>
+        今我则已有谓矣，而未知吾所谓，其果有谓乎？其果无谓乎？
+      </center>
+      </p>
+      <br>
+      <br>
+  </div>
+</div>
+{% endif %}
+{% include 'page.html' %}
+
+
+{% endblock %}

@@ -1,0 +1,9 @@
+body { background: #dbe0e4 url(../image/dfzr.jpg) left 0 scroll ; }
+
+#scrollUp {
+background-image: url("yingyang.png");
+bottom: 20px;
+right: 20px;
+width: 38px; /* Width of image */
+height: 38px; /* Height of image */
+}

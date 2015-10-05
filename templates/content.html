@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ title }}|复见天心
+{% endblock %}
+{% block content %}
+<div class="panel">
+<div class="panel-heading navbar-default"><strong>{{ content.title }}</strong></div>
+  <div class="article-tags">
+    &nbsp;
+  <span class="label label-success"><span class="glyphicon glyphicon-tags"><b>标签:</b></span></span>
+    {% for tag in content.tag.all %}
+    <a class="label label-success" href="{{ tag.get_absolute_url }}"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>{{ tag }}</a>
+    {% endfor %}
+     <span class="label label-info"><span class="glyphicon glyphicon-time"><b>时间:</b></span></span>
+    <span class="label label-info">{{ content.date_publish | date:"SHORT_DATE_FORMAT" }}</span>
+    <span class="ds-thread-count label label-warning" data-thread-key="{{ content.id }}" data-count-type="comments"></span>
+    </div>
+  <div class="panel-body">
+    {% autoescape off %}
+    {{ content.content }}
+    {% endautoescape %}
+  </div>
+<div class="panel-body"><div class="ds-thread" data-thread-key="{{ content.id }}" data-title="{{ content.title }}" data-url="{{ content.get_absolute_url }}"></div>
+</div>
+</div>
+{% endblock %}

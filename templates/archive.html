@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+    文章归档|复见天心
+{% endblock %}
+{% block content %}
+{% for a in archive_list %}
+    {% for x in a %}
+        {% if forloop.first%}
+    <div class="panel">
+    <div class="panel-heading navbar-default"><strong>{{ x }}</strong></div>
+    <div class="panel-body">
+            {% else %}
+            {% for c in x %}
+            <li class="col-md-12" style="list-style-type:none">
+                <a href="{{ c.get_absolute_url }}">
+                    <span class="col-md-5"><span class="glyphicon glyphicon-book"></span>
+                        《{{ c.title }}》</span><span class="col-md-4">
+                    <span class="glyphicon glyphicon-pencil"></span>描述：{{ c.desc }}</span>
+                    <span class="col-md-3"><span class="glyphicon glyphicon-time"></span>时间：{{ c.date_publish | date:"SHORT_DATE_FORMAT" }}</span></a></li>
+            {% endfor %}
+    </div>
+    </div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+{% endblock %}

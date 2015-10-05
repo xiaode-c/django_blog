@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}
+    留言|复见天心
+{% endblock %}
+{% block content %}
+<div class="panel">
+<div class="panel-heading navbar-default"><strong>留言墙</strong>
+    <a href="#" class="pull-right" data-toggle="modal" data-target="#myModal"><span><span class="glyphicon glyphicon-edit"></span><strong>新增留言</strong></span></a></div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">新留言</h4>
+      </div>
+      <form action="#" method="post">
+      <div class="modal-body">
+              {% csrf_token %}
+              {{ form.as_p }}
+      </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="新增留言">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+    <div class="article-tags">
+    </div>
+    <div class="panel-body">
+      <div class="row">
+          <div class="col-md-12">
+            {% for m in article_list %}
+                <div class="col-md-4">
+                <div class="panel panel-default">
+                <div class="panel-heading">{{ m.username }}</div>
+                <div class="panel-body">
+                {{ m.content }}
+                </div>
+                <div class="panel-footer">{{ m.date_publish | date:"SHORT_DATE_FORMAT" }}</div>
+                </div>
+                </div>
+            {% endfor %}
+          </div>
+      </div>
+  {% include 'page.html' %}
+  </div>
+</div>
+<div class="panel">
+<div class="panel-heading navbar-default"><strong>留言栏</strong></div>
+<div class="panel-body">
+    <div class="ds-thread" data-thread-key="{{ content.id }}" data-title="{{ content.title }}"
+         data-url="{{ content.get_absolute_url }}">
+    </div>
+</div>
+</div>
+{% endblock %}
